@@ -34,8 +34,14 @@ Building high-performance solutions and strategic automations. I'm focused on th
 ### Professional Insights & Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=calm&include_all_commits=true&count_private=true&text_color=A371F7&icon_color=A371F7&title_color=A371F7&bg_color=0D1117&hide_border=true&v=2026" alt="Lucas's GitHub Stats" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=calm&hide=C%2B%2B,PHP&langs_count=6&text_color=A371F7&icon_color=A371F7&title_color=A371F7&bg_color=0D1117&hide_border=true&v=2026" alt="Lucas's Top Languages" width="48%" />
+  <img src="https://img.shields.io/badge/2025_Commits-129-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2025 Commits" />
+  &nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/2026_Commits-101-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2026 Commits" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=calm&include_all_commits=true&count_private=true&hide=issues,contribs&text_color=A371F7&icon_color=A371F7&title_color=A371F7&bg_color=0D1117&hide_border=true&cache_seconds=1800" alt="Lucas's GitHub Stats" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=calm&hide=C%2B%2B,PHP&langs_count=6&text_color=A371F7&icon_color=A371F7&title_color=A371F7&bg_color=0D1117&hide_border=true&cache_seconds=1800" alt="Lucas's Top Languages" width="48%" />
 </p>
 
 ---
@@ -51,3 +57,6 @@ Building high-performance solutions and strategic automations. I'm focused on th
     <img src="https://img.shields.io/badge/Instagram-531a8c?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
   </a>
 </p>
+
+---
+*Solving challenges, delivering results. 2026.*

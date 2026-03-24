@@ -61,5 +61,3 @@ Building high-performance solutions and strategic automations. I'm focused on th
   </a>
 </p>
 
----
-*Solving challenges, delivering results. 2026.*

@@ -18,10 +18,13 @@ Building high-performance solutions and strategic automations. I'm focused on th
 
 ### Live Ecosystem & Featured Projects
 
-- **[Main Portfolio & Web Projects](https://lsprado-dev.github.io/)** — A curated showcase of custom, high-conversion websites and UI experiments.
-- **[Smartcase Pro](https://github.com/lsprado-dev/Smartcase_Pro)** — Advanced text formatting, data extraction, and privacy tool for the web. *(Live)*
-- **[Real-Time Exchange Rate](https://github.com/lsprado-dev/Real-Time-Exchange-Rate)** — High-performance Chrome extension for instant financial tracking and currency conversion. *(Live)*
-- **[Corgi Run Game](https://lsprado-dev.github.io/Corgi_Game/)** — Interactive browser game featuring procedural audio and dynamic environments.
+- <a href="https://lsprado-dev.github.io/"><img src="https://img.shields.io/badge/-Main_Portfolio_%26_Web_Projects-531a8c?style=flat&logoColor=white" alt="Main Portfolio"/></a> — A curated showcase of custom, high-conversion websites and UI experiments.
+
+- <a href="https://github.com/lsprado-dev/Smartcase_Pro"><img src="https://img.shields.io/badge/-Smartcase_Pro-531a8c?style=flat&logoColor=white" alt="Smartcase Pro"/></a> — Advanced text formatting, data extraction, and privacy tool for the web. *(Live)*
+
+- <a href="https://github.com/lsprado-dev/Real-Time-Exchange-Rate"><img src="https://img.shields.io/badge/-RealTime_Exchange_Rate-531a8c?style=flat&logoColor=white" alt="Real-Time Exchange Rate"/></a> — High-performance Chrome extension for instant financial tracking and currency conversion. *(Live)*
+
+- <a href="https://lsprado-dev.github.io/Corgi_Game/"><img src="https://img.shields.io/badge/-Corgi_Run_Game-531a8c?style=flat&logoColor=white" alt="Corgi Run Game"/></a> — Interactive browser game featuring procedural audio and dynamic environments.
 
 ---
 

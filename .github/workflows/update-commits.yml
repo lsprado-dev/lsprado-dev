@@ -8,9 +8,6 @@ on:
 permissions:
   contents: write
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   update-profile:
     runs-on: ubuntu-latest
@@ -18,61 +15,60 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Update Dashboard via Python
+      - name: Run Dashboard Optimizer
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           python3 -c "
           import requests, os, re, datetime
 
-          headers = {'Authorization': 'token ' + os.environ['GH_TOKEN']}
+          headers = {'Authorization': f'token {os.environ[\"GH_TOKEN\"]}'}
           user = 'lsprado-dev'
 
           # 1. Fetch Global Data
-          query = '{\"query\": \"query { user(login: \\\"' + user + '\\\") { contributionsCollection(from: \\\"2026-01-01T00:00:00Z\\\") { contributionCalendar { totalContributions } } } }\"}'
-          res_commits = requests.post('https://api.github.com/graphql', headers=headers, json={'query': query.replace('\\', '')}).json()
-          total_2026 = res_commits['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
+          query = '''query($login: String!) { 
+            user(login: $login) { 
+              contributionsCollection(from: \"2026-01-01T00:00:00Z\") { 
+                contributionCalendar { totalContributions } 
+              } 
+            } 
+          }'''
+          res = requests.post('https://api.github.com/graphql', headers=headers, json={'query': query, 'variables': {'login': user}}).json()
+          total_2026 = res['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
           
-          user_data = requests.get(f'https://api.github.com/users/{user}', headers=headers).json()
-          repos_count = user_data['public_repos']
+          u_data = requests.get(f'https://api.github.com/users/{user}', headers=headers).json()
+          repos_count = u_data.get('public_repos', 0)
           
           repos = requests.get(f'https://api.github.com/users/{user}/repos?per_page=100', headers=headers).json()
-          stars = sum([r['stargazers_count'] for r in repos])
+          stars = sum(r.get('stargazers_count', 0) for r in repos)
 
-          # 2. Languages Stats
+          # 2. Calculate Languages %
           stats = {}
           for r in repos:
               l_data = requests.get(r['languages_url'], headers=headers).json()
-              for lang, bytes_count in l_data.items():
-                  stats[lang] = stats.get(lang, 0) + bytes_count
+              for lang, b in l_data.items(): stats[lang] = stats.get(lang, 0) + b
           
-          total_bytes = sum(stats.values())
-          sorted_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:3]
-          badges = ' '.join([f'<img src=\"https://img.shields.io/badge/{l}-{int(b/total_bytes*100)}%25-531a8c?style=flat-square&logo={l.lower()}\" alt=\"{l}\" />' for l, b in sorted_stats])
+          total_b = sum(stats.values())
+          sorted_l = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:3]
+          badges = ' '.join([f'<img src=\"https://img.shields.io/badge/{l}-{int(b/total_b*100)}%25-531a8c?style=flat-square&logo={l.lower()}\" alt=\"{l}\" />' for l, b in sorted_l])
 
-          # 3. Time
-          now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=2))).strftime('%Y-%m-%d %H:%M')
+          # 3. Date (Poland)
+          now = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=2)).strftime('%Y-%m-%d %H:%M')
 
-          # 4. Update File
-          with open('README.md', 'r') as f:
-              content = f.read()
-
+          # 4. Atomic Update of README
+          with open('README.md', 'r', encoding='utf-8') as f: content = f.read()
+          
           content = re.sub(r'2026_Commits-\d+-', f'2026_Commits-{total_2026}-', content)
           content = re.sub(r'Public_Repos-\d+-', f'Public_Repos-{repos_count}-', content)
           content = re.sub(r'Stars_Earned-\d+-', f'Stars_Earned-{stars}-', content)
-          content = re.sub(r'Last updated: .*? —', f'Last updated: {now} (Poland Time) —', content)
-          
-          # Safe injection for languages
-          pattern = r'.*?'
-          replacement = f'\n{badges}\n'
-          content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+          content = re.sub(r'Last updated: .*? \(Poland Time\)', f'Last updated: {now} (Poland Time)', content)
+          content = re.sub(r'.*?', f'\n<p align=\"center\">{badges}</p>\n', content, flags=re.DOTALL)
 
-          with open('README.md', 'w') as f:
-              f.write(content)
+          with open('README.md', 'w', encoding='utf-8') as f: f.write(content)
           "
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Fixed dashboard explosion & updated stats"
+          commit_message: "Automated: Professional stats & language distribution"
           file_pattern: "README.md"

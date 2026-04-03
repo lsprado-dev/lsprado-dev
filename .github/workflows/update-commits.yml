@@ -18,52 +18,61 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Fetch Global Data & Calculate Stats
+      - name: Update Dashboard via Python
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          # 1. Commits 2026
-          QUERY='{"query": "query { user(login: \"lsprado-dev\") { contributionsCollection(from: \"2026-01-01T00:00:00Z\") { contributionCalendar { totalContributions } } } }"}'
-          TOTAL_2026=$(curl -s -H "Authorization: bearer $GH_TOKEN" -X POST -d "$QUERY" https://api.github.com/graphql | jq '.data.user.contributionsCollection.contributionCalendar.totalContributions')
-          
-          # 2. Repos e Stars
-          REPOS=$(curl -s -H "Authorization: bearer $GH_TOKEN" https://api.github.com/users/lsprado-dev | jq '.public_repos')
-          STARS=$(curl -s -H "Authorization: bearer $GH_TOKEN" "https://api.github.com/users/lsprado-dev/repos?per_page=100" | jq -r '[.[].stargazers_count] | add // 0')
-
-          # 3. Cálculo de Linguagens (Top 3)
-          # Puxa os bytes de cada linguagem de todos os repos
-          LANG_DATA=$(curl -s -H "Authorization: bearer $GH_TOKEN" "https://api.github.com/users/lsprado-dev/repos?per_page=100" | jq -r '.[].languages_url' | xargs -I {} curl -s -H "Authorization: bearer $GH_TOKEN" {} | jq -s 'path(..)|select(length==1) as $i | map(.[$i[0]]) | add' | jq -s 'add')
-          
-          # Aqui usamos um mini script python para processar os dados e gerar as badges de %
           python3 -c "
-          import requests, os
+          import requests, os, re, datetime
+
           headers = {'Authorization': 'token ' + os.environ['GH_TOKEN']}
-          repos = requests.get('https://api.github.com/users/lsprado-dev/repos?per_page=100', headers=headers).json()
+          user = 'lsprado-dev'
+
+          # 1. Fetch Global Data
+          query = '{\"query\": \"query { user(login: \\\"' + user + '\\\") { contributionsCollection(from: \\\"2026-01-01T00:00:00Z\\\") { contributionCalendar { totalContributions } } } }\"}'
+          res_commits = requests.post('https://api.github.com/graphql', headers=headers, json={'query': query.replace('\\', '')}).json()
+          total_2026 = res_commits['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions']
+          
+          user_data = requests.get(f'https://api.github.com/users/{user}', headers=headers).json()
+          repos_count = user_data['public_repos']
+          
+          repos = requests.get(f'https://api.github.com/users/{user}/repos?per_page=100', headers=headers).json()
+          stars = sum([r['stargazers_count'] for r in repos])
+
+          # 2. Languages Stats
           stats = {}
           for r in repos:
-              lang_url = r['languages_url']
-              l_data = requests.get(lang_url, headers=headers).json()
-              for lang, bytes in l_data.items():
-                  stats[lang] = stats.get(lang, 0) + bytes
-          total = sum(stats.values())
+              l_data = requests.get(r['languages_url'], headers=headers).json()
+              for lang, bytes_count in l_data.items():
+                  stats[lang] = stats.get(lang, 0) + bytes_count
+          
+          total_bytes = sum(stats.values())
           sorted_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:3]
-          badge_str = ' '.join([f'<img src=\"https://img.shields.io/badge/{l}-{int(b/total*100)}%25-531a8c?style=flat-square\&logo={l.lower()}\" alt=\"{l}\" />' for l, b in sorted_stats])
-          with open('langs_badge.txt', 'w') as f: f.write(badge_str)
+          badges = ' '.join([f'<img src=\"https://img.shields.io/badge/{l}-{int(b/total_bytes*100)}%25-531a8c?style=flat-square&logo={l.lower()}\" alt=\"{l}\" />' for l, b in sorted_stats])
+
+          # 3. Time
+          now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=2))).strftime('%Y-%m-%d %H:%M')
+
+          # 4. Update File
+          with open('README.md', 'r') as f:
+              content = f.read()
+
+          content = re.sub(r'2026_Commits-\d+-', f'2026_Commits-{total_2026}-', content)
+          content = re.sub(r'Public_Repos-\d+-', f'Public_Repos-{repos_count}-', content)
+          content = re.sub(r'Stars_Earned-\d+-', f'Stars_Earned-{stars}-', content)
+          content = re.sub(r'Last updated: .*? —', f'Last updated: {now} (Poland Time) —', content)
+          
+          # Safe injection for languages
+          pattern = r'.*?'
+          replacement = f'\n{badges}\n'
+          content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+          with open('README.md', 'w') as f:
+              f.write(content)
           "
-          LANG_BADGES=$(cat langs_badge.txt)
-
-          # 4. Horário Polônia
-          LAST_UPDATED=$(TZ='Europe/Warsaw' date +'%Y-%m-%d %H:%M')
-
-          # 5. Update README
-          sed -i "s/2026_Commits-[0-9]*-/2026_Commits-${TOTAL_2026}-/g" README.md
-          sed -i "s/Public_Repos-[0-9]*-/Public_Repos-${REPOS}-/g" README.md
-          sed -i "s/Stars_Earned-[0-9]*-/Stars_Earned-${STARS}-/g" README.md
-          sed -i "s|.*|${LANG_BADGES} |g" README.md
-          sed -i "s/Last updated: .* — <i>/Last updated: ${LAST_UPDATED} (Poland Time) — <i>/g" README.md
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Global dashboard with language distribution"
+          commit_message: "Automated: Fixed dashboard explosion & updated stats"
           file_pattern: "README.md"

@@ -1,9 +1,9 @@
-name: Update Profile Commits
+name: Update Profile Dashboard
 
 on:
   schedule:
-    - cron: '0 2 * * *'
-  workflow_dispatch:
+    - cron: '0 */6 * * *' # Roda automaticamente a cada 6 horas
+  workflow_dispatch: # Botão manual
 
 permissions:
   contents: write
@@ -12,24 +12,29 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  update-commits:
+  update-profile:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Calculate 2026 Commits
+      - name: Fetch Global Data & Update
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          # Conta os commits
-          COMMITS=$(git rev-list --count --since="2026-01-01T00:00:00Z" --all)
-          echo "Commits in 2026: $COMMITS"
-          # Atualiza só o README
-          sed -i "s/2026_Commits-[0-9]*-/2026_Commits-${COMMITS}-/g" README.md
+          # 1. Puxa seus commits globais de 2026 (Públicos e Privados)
+          QUERY='{"query": "query { user(login: \"lsprado-dev\") { contributionsCollection(from: \"2026-01-01T00:00:00Z\") { contributionCalendar { totalContributions } } } }"}'
+          TOTAL_2026=$(curl -s -H "Authorization: bearer $GH_TOKEN" -X POST -d "$QUERY" https://api.github.com/graphql | jq '.data.user.contributionsCollection.contributionCalendar.totalContributions')
+          
+          # 2. Pega o horário atual
+          LAST_UPDATED=$(date +'%Y-%m-%d %H:%M')
 
-      - name: Commit Updates
+          # 3. Injeta os dados no README
+          sed -i "s/2026_Commits-[0-9]*-/2026_Commits-${TOTAL_2026}-/g" README.md
+          sed -i "s/Last updated: .* — <i>/Last updated: ${LAST_UPDATED} — <i>/g" README.md
+
+      - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Update 2026 commits badge"
+          commit_message: "Automated: Global stats & dashboard sync"
           file_pattern: "README.md"

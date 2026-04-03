@@ -54,10 +54,10 @@ Building high-performance solutions and strategic automations. I'm focused on th
 
 <p align="center">
   <a href="https://github.com/lsprado-dev">
-    <img src="stats.svg" alt="Lucas's GitHub Stats" width="48%" />
+    <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=tokyonight&include_all_commits=true&hide=issues,contribs&hide_border=true" alt="Lucas's GitHub Stats" />
   </a>
   <a href="https://github.com/lsprado-dev">
-    <img src="langs.svg" alt="Lucas's Top Languages" width="48%" />
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=tokyonight&hide=C%2B%2B,PHP&langs_count=6&hide_border=true&layout=compact" alt="Lucas's Top Languages" />
   </a>
 </p>
 

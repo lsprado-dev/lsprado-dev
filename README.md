@@ -42,9 +42,6 @@ Building high-performance solutions and strategic automations. I'm focused on th
   <img src="https://img.shields.io/badge/Stars_Earned-0-531a8c?style=for-the-badge&logo=apachespark&logoColor=white" alt="Stars" />
 </p>
 
-<p align="center">
-</p>
-
 ---
 
 ### Connect with Me

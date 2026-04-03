@@ -30,34 +30,19 @@ Building high-performance solutions and strategic automations. I'm focused on th
 
 ---
 
-### Key Technology Stack
-
-<p align="left">
-  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white&color=531a8c" alt="HTML5"/></a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white&color=531a8c" alt="CSS3"/></a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black&color=531a8c" alt="JavaScript"/></a>
-  <a href="https://www.google.com/sheets/about/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=google-sheets&logoColor=white&color=531a8c" alt="Google Sheets Automation"/></a>
-  <a href="https://developers.google.com/apps-script" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Apps_Script-4285F4?style=flat&logo=google&logoColor=white&color=531a8c" alt="Google Apps Script"/></a>
-  <a href="https://developer.chrome.com/docs/extensions/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Chrome_Extensions-4285F4?style=flat&logo=google-chrome&logoColor=white&color=531a8c" alt="Chrome Extensions"/></a>
-  <a href="https://git-scm.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white&color=303030" alt="Git"/></a>
-  <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/VS_Code-007ACC?style=flat&logo=visual-studio-code&logoColor=white&color=303030" alt="VS Code"/></a>
-</p>
-
----
-
 ### Professional Insights & Stats
 
 <p align="center">
   <img src="https://img.shields.io/badge/2025_Commits-129-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2025 Commits" />
-  <img src="https://img.shields.io/badge/2026_Commits-17-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2026 Commits" />
+  <img src="https://img.shields.io/badge/2026_Commits-175-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2026 Commits" />
 </p>
 
 <p align="center">
   <a href="https://github.com/lsprado-dev">
-    <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=tokyonight&include_all_commits=true&hide=issues,contribs&hide_border=true" alt="Lucas's GitHub Stats" />
+    <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=tokyonight&hide_border=true&cache_seconds=86400" alt="Lucas's GitHub Stats" width="48%" />
   </a>
   <a href="https://github.com/lsprado-dev">
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=tokyonight&hide=C%2B%2B,PHP&langs_count=6&hide_border=true&layout=compact" alt="Lucas's Top Languages" />
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=tokyonight&hide=C%2B%2B,PHP&langs_count=6&hide_border=true&layout=compact&cache_seconds=86400" alt="Lucas's Top Languages" width="48%" />
   </a>
 </p>
 
@@ -72,4 +57,8 @@ Building high-performance solutions and strategic automations. I'm focused on th
   <a href="https://www.instagram.com/lsprado_dev/" target="_blank" rel="noreferrer">
     <img src="https://img.shields.io/badge/Instagram-531a8c?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
   </a>
+</p>
+
+<p align="center">
+  <sub>Last updated: 2026-04-03 12:00 — <i>Automatically optimized via GitHub Actions</i></sub>
 </p>

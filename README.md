@@ -22,7 +22,7 @@ Building high-performance solutions and strategic automations. I'm focused on th
 
 - <a href="https://github.com/lsprado-dev/Smartcase_Pro"><img src="https://img.shields.io/badge/-Smartcase_Pro-531a8c?style=flat&logoColor=white" alt="Smartcase Pro"/></a> — Advanced text formatting, data extraction, and privacy tool for the web. *(Live)*
 
-- <a href="https://github.com/lsprado-dev/ClipOctaplus"><img src="https://img.shields.io/badge/-ClipOctaplus-531a8c?style=flat&logoColor=white" alt="ClipOctaplus"/></a> — A privacy-first, 100% local clipboard manager extension featuring smart filters, auto-cleanup, and a secure PIN-protected vault. *(Live)*
+- <a href="https://github.com/lsprado-dev/ClipOctaplus_Extension"><img src="https://img.shields.io/badge/-ClipOctaplus-531a8c?style=flat&logoColor=white" alt="ClipOctaplus"/></a> — A privacy-first, 100% local clipboard manager extension featuring smart filters, auto-cleanup, and a secure PIN-protected vault. *(Live)*
 
 - <a href="https://github.com/lsprado-dev/Real-Time-Exchange-Rate"><img src="https://img.shields.io/badge/-RealTime_Exchange_Rate-531a8c?style=flat&logoColor=white" alt="Real-Time Exchange Rate"/></a> — High-performance Chrome extension for instant financial tracking and currency conversion. *(Live)*
 
@@ -53,8 +53,12 @@ Building high-performance solutions and strategic automations. I'm focused on th
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=tokyonight&include_all_commits=true&hide=issues,contribs&hide_border=true" alt="Lucas's GitHub Stats" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=tokyonight&hide=C%2B%2B,PHP&langs_count=6&hide_border=true&layout=compact" alt="Lucas's Top Languages" width="48%" />
+  <a href="https://github.com/lsprado-dev">
+    <img src="stats.svg" alt="Lucas's GitHub Stats" width="48%" />
+  </a>
+  <a href="https://github.com/lsprado-dev">
+    <img src="langs.svg" alt="Lucas's Top Languages" width="48%" />
+  </a>
 </p>
 
 ---

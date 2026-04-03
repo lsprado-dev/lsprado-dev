@@ -1,0 +1,59 @@
+name: Update Profile Stats & Commits
+
+on:
+  schedule:
+    # Roda todo dia às 02:00 da manhã
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Permite rodar manualmente no botão
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate 2026 Commits
+        run: |
+          # Conta commits desde 01/01/2026
+          COMMITS=$(git rev-list --count --since="2026-01-01T00:00:00Z" --all)
+          echo "Commits in 2026: $COMMITS"
+          # Atualiza a badge no README
+          sed -i "s/2026_Commits-[0-9]*-/2026_Commits-${COMMITS}-/g" README.md
+
+      - name: Fetch Static Stats (SSG approach)
+        run: |
+          echo "Baixando estatísticas..."
+          
+          # Baixa as imagens para arquivos temporários
+          curl -sL -o temp_stats.svg "https://github-readme-stats.vercel.app/api?username=lsprado-dev&show_icons=true&theme=tokyonight&include_all_commits=true&hide=issues,contribs&hide_border=true"
+          curl -sL -o temp_langs.svg "https://github-readme-stats.vercel.app/api/top-langs/?username=lsprado-dev&theme=tokyonight&hide=C%2B%2B,PHP&langs_count=6&hide_border=true&layout=compact"
+
+          # Filtro de Segurança: Só sobrescreve os arquivos originais se o download for realmente um SVG válido (evita salvar telas de erro da Vercel)
+          if grep -q "<svg" temp_stats.svg; then
+            mv temp_stats.svg stats.svg
+            echo "Stats SVG atualizado com sucesso."
+          else
+            echo "Falha ao baixar Stats. Mantendo a versão anterior."
+          fi
+
+          if grep -q "<svg" temp_langs.svg; then
+            mv temp_langs.svg langs.svg
+            echo "Langs SVG atualizado com sucesso."
+          else
+            echo "Falha ao baixar Langs. Mantendo a versão anterior."
+          fi
+
+          # Limpa os temporários caso tenham sobrado
+          rm -f temp_*.svg
+
+      - name: Commit Updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated: Profile stats and commits sync"
+          file_pattern: "README.md stats.svg langs.svg"

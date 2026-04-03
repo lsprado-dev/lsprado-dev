@@ -37,6 +37,14 @@ Building high-performance solutions and strategic automations. I'm focused on th
   <img src="https://img.shields.io/badge/2026_Commits-187-531a8c?style=for-the-badge&logo=github&logoColor=white" alt="2026 Commits" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Public_Repos-0-531a8c?style=for-the-badge&logo=git&logoColor=white" alt="Public Repos" />
+  <img src="https://img.shields.io/badge/Stars_Earned-0-531a8c?style=for-the-badge&logo=apachespark&logoColor=white" alt="Stars" />
+</p>
+
+<p align="center">
+  </p>
+
 ---
 
 ### Connect with Me
@@ -51,5 +59,5 @@ Building high-performance solutions and strategic automations. I'm focused on th
 </p>
 
 <p align="center">
-  <sub>Last updated: 2026-04-03 12:59 (Poland Time) — <i>Automatically optimized via GitHub Actions</i></sub>
+  <sub>Last updated: 2026-04-03 13:05 (Poland Time) — <i>Automatically optimized via GitHub Actions</i></sub>
 </p>
